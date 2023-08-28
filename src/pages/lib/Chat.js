@@ -11,7 +11,7 @@ import { ElevenLabsVoiceService } from '@avatechai/avatars/voice'
 const elevenLabs = new ElevenLabsVoiceService(
   process.env.NEXT_PUBLIC_ELEVEN_LABS_API_KEY,
   'eleven_monolingual_v1',
-  'biiTjdAywMak7MF2w2US'
+  process.env.NEXT_PUBLIC_GOD_FATHER_VOICE_ID
 )
 
 export default function Chat() {
@@ -22,6 +22,7 @@ export default function Chat() {
   const [userMessage, setUserMessage] = useState('')
   const [AIMessage, setAIMessage] = useState('')
   const [AIThoughts, setAIThoughts] = useState('')
+
   useEffect(() => {
     ;(async () => {
       if (userMessage == '' || emotions.length <= 0) return
@@ -91,7 +92,7 @@ export default function Chat() {
       text: lastMessage,
       avatarLoaders: defaultAvatarLoaders,
       avatarId: '8758f800-b0e0-43c1-996b-620c2295fb0d',
-      className: '!w-[300px] !h-[300px] ',
+      className: 'xl:!w-[480px] xl:!h-[480px] !w-[300px] !h-[300px]',
       audioService: elevenLabs,
       onAvatarLoaded: () => {
         handleFirstInteractionAudio()
@@ -103,17 +104,17 @@ export default function Chat() {
   }, [availableEmotions])
 
   return (
-    <div className='min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 relative flex justify-center'>
-      <div className='flex flex-col container px-4 py-6 items-center justify-center gap-6 relative'>
-        <h1
-          className={`text-4xl text-white font-semibold mb-4 text-center orbitron absolute top-16 left-5`}
-        >
-          Social AGI
-        </h1>
-        <div className='rounded-2xl border-dashed border-2 border-white flex overflow-hidden'>
+    <div className='min-h-screen relative flex justify-center'>
+      <img
+        src='https://cdnb.artstation.com/p/assets/covers/images/029/968/279/large/alexis-rueda-huitron-alexis-rueda-huitron-x-1a816fd25c95a4abf5e882c70072568e-869276cb-2048.jpg?1599174356'
+        alt=''
+        className='w-full h-full flex justify-center absolute object-contain aspect-auto'
+      />
+      <div className='flex flex-col xl:flex-row py-6 items-center justify-center gap-6 relative'>
+        <div className='rounded-2xl flex w-full justify-center overflow-hidden'>
           {avatarDisplay}
         </div>
-        <div className='flex flex-row'>
+        <div className='flex md:flex-row flex-col-reverse relative justify-center w-full'>
           <Messages
             handleMessageChange={handleMessageChange}
             message={message}
@@ -124,6 +125,14 @@ export default function Chat() {
             soulThoughts={soulThoughts}
             soulMessagesEndRef={soulMessagesEndRef}
           />
+          {/* <img
+            src='https://avatech-avatar-dev1.nyc3.cdn.digitaloceanspaces.com/public-download/sdk/godfather_background.webp'
+            alt=''
+            className='object-cover w-full h-full flex absolute z-0 rounded-2xl'
+          /> */}
+          <div className='absolute w-full h-full max-h-[534px] flex bg-white bg-opacity-40 rounded-2xl blur'>
+            <div className=''></div>
+          </div>
         </div>
       </div>
     </div>
@@ -147,11 +156,11 @@ function Messages({
     setTimeout(() => scrollToBottom(), 250)
   }, [messages])
   return (
-    <div className='bg-white rounded-lg shadow-md p-6 max-w-md w-96'>
-      <h1 className='text-xl font-semibold mb-4 text-center'>
-        Share with Samantha
+    <div className='rounded-2xl shadow-md p-6 max-w-md w-full md:w-96 relative'>
+      <h1 className='text-xl font-semibold mb-4 text-center text-black relative z-10'>
+        Share with God Father
       </h1>
-      <div className='flex flex-col space-y-4 h-96 overflow-y-auto mb-4 min-h-40 hide-scrollbar'>
+      <div className='flex flex-col space-y-4 max-h-48 md:max-h-96 h-96 overflow-y-auto mb-4 min-h-40 hide-scrollbar z-10 relative'>
         {messages &&
           Object.entries(messages).map(([key, message], index) => (
             <div
@@ -190,7 +199,7 @@ function Messages({
       </div>
       <form
         onSubmit={handleSendMessage}
-        className='flex items-center space-x-4'
+        className='flex items-center space-x-4 relative z-10 sm:flex-row flex-col'
       >
         <input
           type='text'
@@ -212,28 +221,31 @@ function Messages({
 
 function SoulThoughts({ soulThoughts, soulMessagesEndRef }) {
   return (
-    <div className='flex bg-white bg-opacity-0 rounded-lg w-96'>
-      <div className='h-full overflow-y-auto ml-10 w-96 mx-auto hide-scrollbar'>
-        <div className='flex-col space-y-4 overflow-y-auto hide-scrollbar pb-60 mr-4 max-h-[534px]'>
+    <div className='flex bg-white bg-opacity-0 rounded-lg w-full sm:w-96 relative z-10'>
+      <div className='h-full overflow-y-auto ml-10 sm:w-96 mx-auto hide-scrollbar'>
+        <div className='flex-col space-y-4 overflow-y-auto hide-scrollbar pt-10 md:pb-60 mr-4 max-h-48 md:max-h-[534px]'>
           {soulThoughts.length > 0 ? (
-            soulThoughts.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${
-                  message.sender === 'soul' ? '' : 'justify-end'
-                }`}
-              >
+            soulThoughts.map((message, index) => {
+              if (message.text == '') return
+              return (
                 <div
-                  className={`text-white bg-purple-100 bg-opacity-30 px-4 py-2 rounded-[35px] shadow-sm opacity-0 transition-all duration-500 ease-in-out animate-fade-in`}
+                  key={index}
+                  className={`flex ${
+                    message.sender === 'soul' ? '' : 'justify-end'
+                  }`}
                 >
-                  {message.text}
+                  <div
+                    className={`text-black bg-purple-100 bg-opacity-50 px-4 py-2 rounded-[35px] shadow-sm opacity-0 transition-all duration-500 ease-in-out animate-fade-in`}
+                  >
+                    {message.text}
+                  </div>
                 </div>
-              </div>
-            ))
+              )
+            })
           ) : (
             <div className={`flex`}>
               <div
-                className={`text-white bg-purple-100 bg-opacity-30 px-4 py-2 rounded-[35px] shadow-sm opacity-0 transition-all duration-500 ease-in-out animate-fade-in`}
+                className={`text-black bg-purple-100 bg-opacity-50 px-4 py-2 rounded-[35px] shadow-sm opacity-0 transition-all duration-500 ease-in-out animate-fade-in`}
               >
                 ......
               </div>
