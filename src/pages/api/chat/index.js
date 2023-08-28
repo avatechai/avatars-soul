@@ -45,27 +45,40 @@ export default async function POST(req, res) {
     description: 'Feels about the last message',
   })
 
-  const thinks = await feels.next(Action.INTERNAL_MONOLOGUE, {
-    action: 'thinks',
-    description: `Thinks about the last message. 
-    Also must be add emotion to the message. 
-    For example, "I feel sad about this [sad]", or "I feel happy about this [happy]". 
-    These are the emotions you can use: ${emotions} 
-    Warning: 
-    You must follow this rule.
-    You must explain your thoughts and add the emotion in last.
-    You must add the emotion to the message in last, like ...... [happy]. 
-    And don't use other emotions, like <happy></happy>. 
-    Just use the emotions that are in the list.`,
-  })
+  let thinks = []
+  let AIthinks
+  for (let index = 0; index < 2; index++) {
+    AIthinks = await feels.next(Action.INTERNAL_MONOLOGUE, {
+      action: 'thinks',
+      description: `Warning(Rules):
+      You must follow this rule.
+      You must explain your thoughts any words.
+      You must add the emotion to the message in last, like ...... [happy]. 
+      And don't use other emotions, like <happy></happy>. 
+      Just use the emotions that are in the list.
 
-  const says = await thinks.next(Action.EXTERNAL_DIALOG, {
+      Contents:
+      Thinks about the last message, also include ${thinks.map(
+        (e) => e
+      )} but never be same, explain more, more variation of thinks. 
+      Also must be add emotion to the message. 
+      For example, "I feel sad about this [sad]", or "I feel happy about this [happy]". 
+      These are the emotions you can use: ${emotions} 
+      `,
+    })
+    if (AIthinks.value.includes(thinks[thinks.length - 1])) {
+      thinks.push(AIthinks.value.replace(thinks[thinks.length - 1], ''))
+      break 
+    }
+    thinks.push(AIthinks.value)
+  }
+  const says = await AIthinks.next(Action.EXTERNAL_DIALOG, {
     action: 'says',
     description: 'Says out loud next',
   })
   const data = {
     message: says.value,
-    thoughts: thinks.value,
+    thoughts: thinks,
     feels: feels.value,
   }
 

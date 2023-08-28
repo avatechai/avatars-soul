@@ -30,7 +30,14 @@ export default function Chat() {
         body: JSON.stringify({ newMessage: userMessage, emotions }),
       }).then((res) => res.json())
       setSayMessage([...sayMessage, { text: message, sender: 'soul' }])
-      setSoulThoughts([...soulThoughts, { text: thoughts, sender: 'soul' }])
+      setSoulThoughts([
+        ...soulThoughts,
+        ...thoughts.map((thought) => ({
+          text: thought,
+          sender: 'soul',
+        })),
+        { text: 'I sent the message: ' + message, sender: 'soul' },
+      ])
     })()
   }, [userMessage, emotions])
 
