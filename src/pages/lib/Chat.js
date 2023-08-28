@@ -106,9 +106,9 @@ export default function Chat() {
   return (
     <div className='min-h-screen relative flex justify-center'>
       <img
-        src='https://cdnb.artstation.com/p/assets/covers/images/029/968/279/large/alexis-rueda-huitron-alexis-rueda-huitron-x-1a816fd25c95a4abf5e882c70072568e-869276cb-2048.jpg?1599174356'
+        src='https://avatech-avatar-dev1.nyc3.cdn.digitaloceanspaces.com/public-download/sdk/godfather_background.webp'
         alt=''
-        className='w-full h-full flex justify-center absolute object-contain aspect-auto'
+        className='w-full h-full flex justify-center absolute object-cover aspect-auto'
       />
       <div className='flex flex-col xl:flex-row py-6 items-center justify-center gap-6 relative'>
         <div className='rounded-2xl flex w-full justify-center overflow-hidden'>
