@@ -65,7 +65,6 @@ export default function Chat() {
     handleFirstInteractionAudio()
     setSayMessage([...sayMessage, { text: message, sender: 'user' }])
     setUserMessage(message)
-    // tellSoul(message)
     if (message.trim() !== '') {
       setMessage('')
     }
@@ -125,11 +124,6 @@ export default function Chat() {
             soulThoughts={soulThoughts}
             soulMessagesEndRef={soulMessagesEndRef}
           />
-          {/* <img
-            src='https://avatech-avatar-dev1.nyc3.cdn.digitaloceanspaces.com/public-download/sdk/godfather_background.webp'
-            alt=''
-            className='object-cover w-full h-full flex absolute z-0 rounded-2xl'
-          /> */}
           <div className='absolute w-full h-full max-h-[534px] flex bg-white bg-opacity-40 rounded-2xl blur'>
             <div className=''></div>
           </div>
@@ -171,7 +165,7 @@ function Messages({
             >
               {message.sender === 'soul' && (
                 <img
-                  src={'/samantha.png'}
+                  src={'/godfather.png'}
                   style={{
                     height: '35px',
                     width: '35px',
