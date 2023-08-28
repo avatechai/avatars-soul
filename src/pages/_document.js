@@ -16,7 +16,7 @@ export default function Document() {
           rel='stylesheet'
         />
       </Head>
-      <title>Avatars Soul</title>
+      <title>Avatars Soul (GodFather)</title>
       <body>
         <Main />
         <NextScript />

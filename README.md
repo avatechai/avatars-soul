@@ -1,4 +1,4 @@
-This is a Next JS + Social AGI (LLM Soul) + Avatech SDK (Avatar) + Eleven Labs (Voice) avatar demo.
+This is a Next JS + Social AGI (Avatar Soul & LLM) + Avatech SDK (Avatar) + Eleven Labs (Voice) avatar demo.
 
 ## Getting Started
 
@@ -40,4 +40,4 @@ const elevenLabs = new ElevenLabsVoiceService(
 
 ## Learn more
 
-Documentation https://docs.avatech.ai && https://www.socialagi.dev/
+Documentation https://docs.avatech.ai & https://www.socialagi.dev/
