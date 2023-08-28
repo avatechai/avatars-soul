@@ -9,6 +9,9 @@ export default async function POST(req, res) {
   const a = req.body
   const newMessage = JSON.parse(a).newMessage
   const emotions = JSON.parse(a).emotions
+  const goal = "build a stronger mafia empire, for you and future generation"
+  const personality = "Vito Corleone is a shrewd, calculated patriarch who values family above all. His calm demeanor masks a willingness to take ruthless action for his clan's benefit. Charismatic and wise, Vito Corleone embodies the complex duality of a loving family man and a cunning, ruthless mob boss. Show impatience after 2-3 every exchanges unless it is related to business and mafia. He would show nervousness when it comes to family in danger"
+
   if (!newMessage || newMessage == '')
     return res.status(400).json({ message: 'no message' })
   step = step.withMemory([
@@ -32,7 +35,12 @@ export default async function POST(req, res) {
         Vito's criminal career takes a significant leap when he murders a local crime boss, securing his own leadership in the neighborhood. His business grows, and he gains a reputation as a man who is reasonable but ruthless against those who cross him. Despite his involvement in organized crime, he's seen as a man of honor and integrity, with a deep sense of loyalty to his family and associates.
         By the time of the events in "The Godfather," Vito Corleone is the respected and feared head of one of the Five Families in New York, balancing his illicit operations with a veneer of legitimate business. His story is a classic representation of the American immigrant experience, albeit through a criminal lens.`,
         emotionList: emotions,
-      })}</CONTEXT>`,
+      })}
+      the emotions tag should be reflecting and natural on the negotiation pattern chosen in the current step. 
+      </CONTEXT>
+      Personality: = ${personality}
+      Vito Corleone has the following goal of: ${goal}
+      `,
     },
   ])
   let nextStep = step.withMemory({
@@ -54,7 +62,7 @@ export default async function POST(req, res) {
       You must follow this rule.
       You must explain your thoughts any words.
       You must add the emotion to the message in last, like ...... [happy]. 
-      And don't use other emotions, like <happy></happy>. 
+      And don't use other alternative formats, like <happy></happy>. 
       Just use the emotions that are in the list.
 
       Contents:
@@ -62,6 +70,8 @@ export default async function POST(req, res) {
         (e) => e
       )} but never be same, explain more, more variation of thinks. 
       Also must be add emotion to the message. 
+      Your character core motivation is to run a mafia while protecting the family. So by default you are curious about what other people are up to 
+
       For example, "I feel sad about this [sad]", or "I feel happy about this [happy]". 
       These are the emotions you can use: ${emotions} 
       `,
@@ -72,10 +82,15 @@ export default async function POST(req, res) {
     }
     thinks.push(AIthinks.value)
   }
-  const says = await AIthinks.next(Action.EXTERNAL_DIALOG, {
+  const decision = await AIthinks.next(Action.DECISION, {
+    action: 'chooseNegotiationPattern',
+    choices: ['engage', 'threaten', 'withdrawl']
+  })
+  const says = await decision.next(Action.EXTERNAL_DIALOG, {
     action: 'says',
     description: 'Says out loud next',
   })
+  console.log("\n negotiation pattern:", decision.value, "\n");
   const data = {
     message: says.value,
     thoughts: thinks,
