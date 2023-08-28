@@ -61,7 +61,7 @@ export default async function POST(req, res) {
 
   const says = await thinks.next(Action.EXTERNAL_DIALOG, {
     action: 'says',
-    description: 'Says out loud next'
+    description: 'Says out loud next',
   })
   const data = {
     message: says.value,

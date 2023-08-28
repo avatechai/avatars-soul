@@ -9,7 +9,7 @@ import {
 import { ElevenLabsVoiceService } from '@avatechai/avatars/voice'
 
 const elevenLabs = new ElevenLabsVoiceService(
-  process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY,
+  process.env.NEXT_PUBLIC_ELEVEN_LABS_API_KEY,
   'eleven_monolingual_v1',
   'biiTjdAywMak7MF2w2US'
 )
@@ -207,7 +207,7 @@ function SoulThoughts({ soulThoughts, soulMessagesEndRef }) {
   return (
     <div className='flex bg-white bg-opacity-0 rounded-lg w-96'>
       <div className='h-full overflow-y-auto ml-10 w-96 mx-auto hide-scrollbar'>
-        <div className='flex-col space-y-4 overflow-y-auto hide-scrollbar pb-60 mr-4'>
+        <div className='flex-col space-y-4 overflow-y-auto hide-scrollbar pb-60 mr-4 max-h-[534px]'>
           {soulThoughts.length > 0 ? (
             soulThoughts.map((message, index) => (
               <div
