@@ -8,7 +8,7 @@
   "author": "SocialAGI",
   "license": "ISC",
   "dependencies": {
-    "@avatechai/avatars": "^0.4.23-next.6",
+    "@avatechai/avatars": "^0.4.23-next.7",
     "@babel/preset-react": "^7.16.5",
     "@nextui-org/button": "^2.0.15",
     "@nextui-org/react": "^2.1.7",
